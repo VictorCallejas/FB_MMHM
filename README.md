@@ -15,13 +15,14 @@ Our system achieves:
 Leaderboard position: (X)
 
 Team name: MemeLords
+
 Team members:
 - C.S Bahusruth
 - Victor Callejas Fuentes
 
 ## Overview
 
-The aim of the competition is to **create an algorithm that identifies multimodal hate speech in internet memes**.
+The aim of this competition is to **create an algorithm that identifies multimodal hate speech in memes**.
 
 The dataset is constructed in a way that the algorithm **must be multimodal** in order to excel. The dataset consists in pairs of **text-images**. 
 
@@ -136,7 +137,7 @@ We used a cross validation strategy in order to choose our best level-0 models a
 The folds can be generated with the script provided at:
 
 ```
-notebooks/fold.ipynb
+notebooks/folds.ipynb
 ```
 
 Once choosen the best parameters we perform a final training on all data [train + dev]. [Stochastic Weight Averaging (SWA)](https://pytorch.org/blog/pytorch-1.6-now-includes-stochastic-weight-averaging/) is key to avoid overfitting.
@@ -144,17 +145,20 @@ Once choosen the best parameters we perform a final training on all data [train 
 This behaviour is choosen in the run configuration file.
 
 The cross validation strategy it's as follows:
+
 Level 1
 - Divide train data into K-folds
 - Train some models
 - For each model we save validation and test features when validation auc is higher
+
 Level 2
 - Validation saved features from each model are now train data, we use the **exact same folds as in level 1**
 - For each K-fold we train a meta-classifier
+
 Level 3
 - Final predictions are the median of the probabilities of the meta-classifier
 
-#### from captions
+#### From captions
 We use them as they are provided
 
 #### From images
@@ -179,7 +183,7 @@ notebooks/generate_vision.ipynb
 ```
 
 ### Models
-We developed two types of base models, one that directly uses features from a pretrained Faster R-CNN network as Uniter, Visualbert... (**Pure Multimodal**) and other type of model were we remove the lineal projection from Faster R-CNN extracted features to transformer embedding space by using directly Visual Genome Objects and Atributes dictionary.(**Multimodal text**)
+We developed two types of base models, one that directly uses features from a pretrained Faster R-CNN network as Uniter, Visualbert... (**Pure Multimodal**) and other type of model were we remove the lineal projection from Faster R-CNN extracted features to transformer embedding space by using directly Visual Genome Objects and Atributes dictionary(**Multimodal text**).
 
 #### Pure Multimodal
 
@@ -217,11 +221,11 @@ In the case of K-fold, there will be K meta-classifiers and the final probabilit
 
 Best cross validation and test unseen scores stacking this 5 models:
 
-- Pure Multimodal Uniter (captions and image)
-- Pure Multimodal Uniter (extended captions and image)
-- Multimodal Text Ernie (extended captions and image)
-- Multimodal Text Distilbert (extended captions and image)
-- Multimodal Text Distilroberta (extended captions and image)
+- Pure Multimodal Uniter (captions and image features)
+- Pure Multimodal Uniter (extended captions and image features)
+- Multimodal Text Ernie (extended captions)
+- Multimodal Text Distilbert (extended captions)
+- Multimodal Text Distilroberta (extended captions)
 
 
 ### Training
@@ -241,7 +245,7 @@ You can use this models already for inference or later in an ensemble.
 
 Logs will be output in the terminal and saved in the artifacts folder for further inspection
 
-#### Trainig ensemble or stacking
+#### Training ensemble or stacking
 
 Run notebook
 ```
@@ -262,11 +266,11 @@ Some of the examples proposed in this dataset are very difficult to classify wit
 
 For example, for the image with id = 16395:
 
-Faster R-CNN trained on Visual Genome: chin long hair face nose eyebrow hair hairstyle facial expression blond
+- Faster R-CNN trained on Visual Genome: chin long hair face nose eyebrow hair hairstyle facial expression blond
 
-Web entities: bethany hamilton
+- Web entities: bethany hamilton
 
-Topic: Shark attack victims
+- Topic: Shark attack victims
 
 Just with the features extracted from the Faster R-CNN it is impossible for some examples to make good predections due to lack of context.
 
@@ -274,7 +278,7 @@ Most of the time the Faster R-CNN features are the best and web entities and top
 
 This web entities are constructed by searching for similar images on the internet.
 
-We present the **necesity of creating a new architecture that it's able to retain information that could be scrapped from internet knowledge**.
+We assert the **necesity of creating a new architecture that it's able to retain information that could be scrapped from internet knowledge**.
 
 #### Stochastic Weight Averaging
 **[SWA](https://pytorch.org/blog/pytorch-1.6-now-includes-stochastic-weight-averaging/) allow us to achive best results during multiple epochs**, that way we can perform final training without validation more confidently.
