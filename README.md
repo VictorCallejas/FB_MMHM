@@ -293,7 +293,7 @@ Different models have different tokenizers and pretraining methods, so **each on
 We tried multiple classification heads for the transformers (MLPs, Convolutional layers...) but always got **best results with just one linear dense layer**, this **could be because of overfitting**.
 
 #### Faster R-CNN dataset
-Models trained on **Visual Genome works better for our task than the one trained on COCO Captions**.
+Models trained on **Visual Genome works better for our task than the one trained on COCO**.
 
 
 ## Further work
