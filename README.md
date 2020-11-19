@@ -152,7 +152,7 @@ Level 1
 - For each model, we save validation and test features when validation AUC is higher
 
 Level 2
-- Validation saved features from each model are now train data, we use the ** same folds as in level 1**
+- Validation saved features from each model are now train data, we use the **same folds as in level 1**
 - For each K-fold we train a meta-classifier
 
 Level 3
