@@ -156,7 +156,7 @@ Level 2
 - For each K-fold we train a meta-classifier
 
 Level 3
-- Final predictions are the median of the probabilities of the meta-classifier
+- Final predictions are the median of the probabilities of each meta-classifier
 
 #### From captions
 We use them as they are provided
