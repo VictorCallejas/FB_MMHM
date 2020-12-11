@@ -12,7 +12,7 @@ Our system achieves:
 - Cross-Validation score over 10-fold: **0.882 AUC** and **0.813 acc**.
 - Test unseen score: **0.788 AUC** and **0.745 acc**.
 
-Leaderboard position: (X)
+Leaderboard position: 7th (and 2nd by accuracy met4ric)
 
 Team name: MemeLords
 
